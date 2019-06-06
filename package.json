@@ -1,0 +1,50 @@
+{
+  "name": "Server",
+  "description": "Base for server feathersjs",
+  "version": "0.0.0",
+  "homepage": "",
+  "main": "main",
+  "keywords": [
+    "feathers"
+  ],
+  "author": {
+    "name": "THEJean-Kevin",
+    "email": "THEJean-Kevin@users.noreply.github.com"
+  },
+  "directories": {
+    "lib": "main"
+  },
+  "engines": {
+    "node": "^11.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "scripts": {
+    "dev": "nodemon main/",
+    "start": "node main/"
+  },
+  "dependencies": {
+    "@feathersjs/configuration": "^2.0.6",
+    "@feathersjs/errors": "^3.3.6",
+    "@feathersjs/express": "^1.3.1",
+    "@feathersjs/feathers": "^3.3.1",
+    "@feathersjs/socketio": "^3.2.9",
+    "@feathersjs/authentication": "^2.1.16",
+    "@feathersjs/authentication-jwt": "^2.0.10",
+    "@feathersjs/authentication-local": "^1.2.9",
+    "@kalisio/feathers-distributed": "^0.3.4",
+    "compression": "^1.7.4",
+    "feathers-sequelize": "^4.1.1",
+    "mysql2": "^1.6.5",
+    "sequelize": "^4.44.0",
+    "cors": "^2.8.5",
+    "cote": "^0.20.0",
+    "helmet": "^3.18.0",
+    "serve-favicon": "^2.5.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}

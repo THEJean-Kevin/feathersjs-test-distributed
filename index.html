@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>feathers-distributed</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/feathers-client@2.4.0/dist/feathers.js"></script>
+  <script type="text/javascript">
+    // Establish a Socket.io connection
+ var socket = io('http://localhost:3030');
+// Initialize our Feathers client application through Socket.io
+// with hooks and authentication.
+const client = feathers();
+client.configure(feathers.hooks())
+
+client.configure(feathers.socketio(socket));
+// Use localStorage to store our login token
+client.configure(feathers.authentication({
+  storage: window.localStorage
+}));
+client.authenticate({
+      strategy: 'local',
+      email: 'user@test.com',
+      password: '$2a$13$/N.Gvpa62bCzMpyXB/MQQuBb2cv5zt0K3elN0IvH3jeZKVRZ6s95e'
+    }).then(()=>{
+     test();
+
+  test1();
+}).catch((error)=>console.log(error))
+
+
+  async function test(){
+      await client.service('first').find({}).then(
+        (todos)=>{
+          var appElement = document.getElementById('app')
+        html = '<p>Authenticated call to the TODO Copie service gives this result:</p><ul>'
+        for (var i = 0; i < todos.length; i++) {
+          html += '<li>' + todos[i].title + ' with ID ' + todos[i].id + ' : ' + todos[i].description + '</li>'
+        }
+        html += '</ul>'
+        appElement.innerHTML += html
+        },(error)=>{
+        var appElement = document.getElementById('app')
+        appElement.innerHTML += '<p>Unauthenticated call to the TODO service gives this result:</p><pre>' + error + '</pre>'
+        console.log('Unauthenticated!', error)
+      })
+  }
+
+  async function test1(){
+      await client.service('seconds').find({}).then(
+        (todos)=>{
+          var appElement = document.getElementById('app')
+        html = '<p>Authenticated call to the TODO service gives this result:</p><ul>'
+        for (var i = 0; i < todos.length; i++) {
+          html += '<li>' + todos[i].title + ' with ID ' + todos[i].id + ' : ' + todos[i].description + '</li>'
+        }
+        html += '</ul>'
+        appElement.innerHTML += html
+        },(error)=>{
+        var appElement = document.getElementById('app')
+        appElement.innerHTML += '<p>Unauthenticated call to the TODO service gives this result:</p><pre>' + error + '</pre>'
+        console.log('Unauthenticated!', error)
+      })
+  }
+
+
+  </script>
+</head>
+<body>
+<h1>feathers-distributed</h1>
+<div id="app"></div>
+</body>
+</html>
